@@ -21,7 +21,12 @@
         <body>
             <header>
                 <a id="profile-link" href="https://www.linkedin.com/in/kalvinparker" target="_blank" rel="noopener noreferrer">
-                    <img class="profile" id="profile-image" src="https://github.com/kalvinparker.png" alt="Kalvin Parker" />
+                    <!-- Prefer a local asset if present, fall back to GitHub avatar -->
+                    <picture>
+                        <source srcset="assets/profile.jpg" type="image/jpeg">
+                        <source srcset="assets/profile.png" type="image/png">
+                        <img class="profile" id="profile-image" src="https://github.com/kalvinparker.png" alt="Kalvin Parker" />
+                    </picture>
                 </a>
                 <div class="meta">
                     <h1>Hi â€” I'm Kalvin</h1>
@@ -48,6 +53,35 @@
 <li><a href="https://github.com/kalvinparker/KSyP.tech_old" target="_blank">KSyP.tech_old</a><div class="proj-meta">KSyP (Keep Secure, you-will-be Protected) offering resources for each stage of the your IT security risk management process.<br/><span>Ruby Â· â˜… 0 Â· updated 2024-08-07</span></div></li>
 <li><a href="https://github.com/kalvinparker/empiresandpuzzles" target="_blank">empiresandpuzzles</a><div class="proj-meta"><br/><span>â˜… 0 Â· updated 2024-03-23</span></div></li>
 </ul>
+            </section>
+
+            <section>
+                <h2>Contact</h2>
+                <p>
+                    Connect with me:
+                    <a href="https://www.linkedin.com/in/kalvin-p-0b5065300/" target="_blank">LinkedIn</a> ·
+                    <a href="https://github.com/kalvinparker" target="_blank">GitHub</a> ·
+                    <a href="mailto:kalvinparker1+github@gmail.com">Email</a>
+                </p>
+
+                <form id="contact-form" action="https://formspree.io/f/your-form-id" method="POST">
+                    <div>
+                        <label for="name">Name</label><br/>
+                        <input id="name" name="name" type="text" required />
+                    </div>
+                    <div>
+                        <label for="email">Email</label><br/>
+                        <input id="email" name="email" type="email" required />
+                    </div>
+                    <div>
+                        <label for="message">Message</label><br/>
+                        <textarea id="message" name="message" rows="4" required></textarea>
+                    </div>
+                    <div style="margin-top:0.5rem">
+                        <button type="submit">Send</button>
+                    </div>
+                    <p style="font-size:0.85rem;color:#666">This form posts to Formspree by default. Replace the <code>action</code> attribute with your form endpoint or remove the form to use a <a href="mailto:kalvinparker1+github@gmail.com">mailto</a> link.</p>
+                </form>
             </section>
 
             <footer>
