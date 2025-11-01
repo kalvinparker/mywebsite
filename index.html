@@ -1,16 +1,44 @@
 
 <html>
-    <h1>
-        Hey, my name is Kalvin
-    </h1>
-    <body>
-        <h2>About me</h2>
-        <p>
-            I am a [Tea addict] who likes to think he knows a bit about computers.
-        </p>
-        <h2>What I'm working on</h2>
-        <p>
-            I am obsessed with AI right now and working on understanding GEN AI and how it works.
-        </p>
-    </body>
-</html>
+    <!doctype html>
+    <html lang="en">
+        <head>
+            <meta charset="utf-8" />
+            <meta name="viewport" content="width=device-width,initial-scale=1" />
+            <title>Kalvin Parker — Projects</title>
+            <style>
+                body { font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial; margin: 0; padding: 1.5rem; background:#f7f7f8; color:#111 }
+                header { display:flex; gap:1rem; align-items:center }
+                img.profile { width:120px; height:120px; border-radius:999px; object-fit:cover; border:2px solid #ddd }
+                .meta { max-width:60ch }
+                .projects { list-style:none; padding:0; margin-top:1rem }
+                .projects li { background: white; padding:1rem; margin-bottom:0.75rem; border-radius:8px; box-shadow:0 1px 2px rgba(0,0,0,0.04) }
+                .proj-meta { color:#555; font-size:0.9rem }
+                a { color: #0366d6 }
+                footer { margin-top:2rem; color:#666; font-size:0.9rem }
+            </style>
+        </head>
+        <body>
+            <header>
+                <a id="profile-link" href="https://www.linkedin.com/in/kalvinparker" target="_blank" rel="noopener noreferrer">
+                    <img class="profile" id="profile-image" src="https://github.com/kalvinparker.png" alt="Kalvin Parker" />
+                </a>
+                <div class="meta">
+                    <h1>Hi — I'm Kalvin</h1>
+                    <p>I like tea, tinkering with computers, and exploring AI. Below are my public GitHub projects (automatically updated).</p>
+                </div>
+            </header>
+
+            <section>
+                <h2>Projects</h2>
+                <!-- PROJECTS: This section is managed by scripts/update_projects.ps1 -->
+                <ul class="projects" id="projects">
+                    <li>Loading projects... Run <code>scripts/update_projects.ps1</code> to populate this list.</li>
+                </ul>
+            </section>
+
+            <footer>
+                <p>Generated on demand. To refresh the projects list run <code>mywebsite\scripts\update_projects.ps1</code>.</p>
+            </footer>
+        </body>
+    </html>
