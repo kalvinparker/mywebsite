@@ -22,21 +22,24 @@ if (-not $repos) {
 $items = @()
 foreach ($r in $repos | Sort-Object -Property updated_at -Descending) {
     $name = $r.name
-    $desc = if ($r.description) { $r.description } else { '' }
+    $desc = if ($r.description) { ($r.description -replace "[\r\n]+"," ") } else { '' }
     $url = $r.html_url
     $lang = if ($r.language) { $r.language } else { '' }
     $stars = $r.stargazers_count
     $updated = (Get-Date $r.updated_at).ToString('yyyy-MM-dd')
 
-    $meta = "$lang · ★ $stars · updated $updated"
-    if ($lang -eq '') { $meta = "★ $stars · updated $updated" }
+    if ($lang -ne '') { $meta = "$lang · ★ $stars · updated $updated" } else { $meta = "★ $stars · updated $updated" }
 
-    $items += "<li><a href=\"$url\" target=\"_blank\">$name</a><div class=\"proj-meta\">$desc<br/><span>$meta</span></div></li>"
+    # Build the list item using double-quote escaping to avoid parsing issues
+    $li = '<li><a href="' + $url + '" target="_blank">' + $name + '</a>'
+    $li += '<div class="proj-meta">' + $desc + '<br/><span>' + $meta + '</span></div></li>'
+    $items += $li
 }
 
-# Read index
-$indexFile = Join-Path -Path (Split-Path -Path $MyInvocation.MyCommand.Path -Parent) -ChildPath $IndexPath
-$indexFile = Resolve-Path -Path $indexFile -ErrorAction Stop
+# Resolve index path relative to script
+$scriptDir = Split-Path -Path $MyInvocation.MyCommand.Path -Parent
+$indexFile = Join-Path -Path $scriptDir -ChildPath $IndexPath
+try { $indexFile = Resolve-Path -Path $indexFile -ErrorAction Stop } catch { Write-Error "Cannot find index file at $indexFile"; exit 2 }
 
 $html = Get-Content -Raw -Path $indexFile
 
@@ -44,18 +47,22 @@ $startMarker = '<!-- PROJECTS: This section is managed by scripts/update_project
 $ulStart = '<ul class="projects" id="projects">'
 $ulEnd = '</ul>'
 
-$prefix, $suffix = $null, $null
+# Find positions rather than relying on regex — more robust for HTML blobs
+$startPos = $html.IndexOf($startMarker)
+if ($startPos -lt 0) { Write-Error "Start marker not found in index.html"; exit 3 }
 
-if ($html -match "(?s)(.*)$startMarker(.*?)$ulStart(.*)$ulEnd(.*)") {
-    $prefix = $matches[1] + $startMarker + "\n" + $ulStart
-    $suffix = $matches[4]
-} else {
-    Write-Error "index.html does not contain the expected markers. Aborting."
-    exit 2
-}
+$ulStartPos = $html.IndexOf($ulStart, $startPos)
+if ($ulStartPos -lt 0) { Write-Error "UL start not found after marker"; exit 4 }
+
+$ulEndPos = $html.IndexOf($ulEnd, $ulStartPos)
+if ($ulEndPos -lt 0) { Write-Error "UL end not found after UL start"; exit 5 }
+
+$prefix = $html.Substring(0, $ulStartPos + $ulStart.Length)
+$suffix = $html.Substring($ulEndPos + $ulEnd.Length)
 
 $newList = $items -join "`n"
-$newHtml = "$prefix`n$newList`n$ulEnd$`n$suffix"
+
+$newHtml = $prefix + "`n" + $newList + "`n" + $ulEnd + $suffix
 
 Set-Content -Path $indexFile -Value $newHtml -Encoding UTF8
 
