@@ -1,3 +1,21 @@
+# mywebsite
+
+This repository contains a small personal website for Kalvin Parker. The site was rebuilt using the `zirafa/simple-website-template` layout, with the original content merged into the template.
+
+Local files of interest:
+- `index.html` — site entry, uses local assets in `assets/`.
+- `assets/style.css` — local CSS adapted from the template.
+- `assets/script.js` — fragment navigation script.
+- `assets/logo.svg`, `assets/background.svg` — local placeholder images.
+- `scripts/validate_assets.ps1` — checks local asset references.
+
+To view locally, open `index.html` in your browser or run:
+
+```powershell
+Start-Process index.html
+```
+
+Credits: template based on https://github.com/zirafa/simple-website-template
 # mywebsite — personal project site
 
 This folder contains a minimal personal website. The `index.html` is automatically populated with your public GitHub repositories by `scripts/update_projects.ps1`.
