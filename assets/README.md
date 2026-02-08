@@ -1,8 +1,8 @@
 Assets folder contents and notes
 
-- `style.css` — local stylesheet adapted from `zirafa/simple-website-template`.
-- `script.js` — local fragment navigation script (relies on jQuery loaded from CDN).
-- `logo.svg`, `background.svg` — simple SVG placeholders created during the scaffold.
+-- `style.css` — local stylesheet adapted from `zirafa/simple-website-template`.
+-- `script.js` — local fragment navigation script (relies on jQuery loaded from CDN).
+-- `logo.png`, `background.jpg` — downloaded/created images used by the site.
 
 If you replace `background.svg` or `logo.svg`, keep the same filenames or update `index.html` accordingly.
 

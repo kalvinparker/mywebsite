@@ -6,7 +6,7 @@ Local files of interest:
 - `index.html` — site entry, uses local assets in `assets/`.
 - `assets/style.css` — local CSS adapted from the template.
 - `assets/script.js` — fragment navigation script.
-- `assets/logo.svg`, `assets/background.svg` — local placeholder images.
+- `assets/logo.png`, `assets/background.jpg` — downloaded images (logo from your GitHub avatar, background from template).
 - `scripts/validate_assets.ps1` — checks local asset references.
 
 To view locally, open `index.html` in your browser or run:
