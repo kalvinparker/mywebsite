@@ -61,13 +61,10 @@
           statsText += `★ ${stars}`;
           if (updated) statsText += ` · updated ${updated}`;
 
-          let $stats = $meta.find('.proj-stats');
-          if ($stats.length) {
-            $stats.text(statsText);
-          } else {
-            $stats = $(`<div class="proj-stats" style="margin-top:0.5rem;color:#666;font-size:0.9rem"></div>`).text(statsText);
-            $meta.append($stats);
-          }
+          // Ensure only a single stats element exists: remove any previous then append one
+          $meta.find('.proj-stats').remove();
+          const $stats = $(`<div class="proj-stats" style="margin-top:0.5rem;color:#666;font-size:0.9rem"></div>`).text(statsText);
+          $meta.append($stats);
         })
         .catch(() => {
           // ignore errors (rate limit, non-public repo, etc.)
