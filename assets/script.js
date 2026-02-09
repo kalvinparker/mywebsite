@@ -61,8 +61,12 @@
           statsText += `★ ${stars}`;
           if (updated) statsText += ` · updated ${updated}`;
 
-          // Ensure only a single stats element exists: remove any previous then append one
+          // Remove any previous stats element
           $meta.find('.proj-stats').remove();
+          // Also remove legacy span-like stats (containing stars or 'updated') so we fully replace old info
+          $meta.find('span').filter(function () {
+            try { return /★|updated/i.test($(this).text()); } catch (e) { return false; }
+          }).remove();
           const $stats = $(`<div class="proj-stats" style="margin-top:0.5rem;color:#666;font-size:0.9rem"></div>`).text(statsText);
           $meta.append($stats);
         })
