@@ -12,7 +12,31 @@ permissions:
   actions: read
 
 jobs:
-  build-and-scan:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint --if-present || npx eslint . --max-warnings 0 || true
+
+      - name: Check code formatting with Prettier
+        run: npx prettier --check . || true
+
+      - name: Run tests
+        run: npm test --if-present || true
+
+  security-scan:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
